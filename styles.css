@@ -1,0 +1,34 @@
+html{
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+body{
+  margin:0;
+  padding:0;
+  background-image: url("resources/camo.png");
+}
+
+#logo{
+  width: 95%;
+  margin: 10px auto 0 auto;
+  display: block;
+}
+
+#content{
+  width: 90%;
+  margin: 10px auto 0 auto;
+}
+
+.progressbar{
+  width: 100%;
+  height: 30px;
+  background-color: white;
+}
+
+.progress{
+  width: 0;
+  height: 30px;
+  background-color: #4CAF50;
+}
