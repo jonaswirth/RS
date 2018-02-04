@@ -31,7 +31,7 @@ function setProgressbar(id, progress){
 document.onreadystatechange = () => {
   if (document.readyState === 'complete') {
     setProgressbar("rs", progressRs);
-    setInterval(function(){updateCountdown();}, 1000);
+    setInterval(() => {updateCountdown();}, 1000);
   }
 };
 
@@ -39,7 +39,7 @@ function updateCountdown(){
   var elem = document.getElementById("rs");
   var elemCountdown = elem.childNodes[5];
 
-  var timeLeft = getTimeLeft(totalRs - (new Date() - rsStart));
+  var timeLeft = getTimeLeft(totalRs - (new Date - rsStart));
 
   if(!timeLeft)
     setProgressbar("rs", 100)
