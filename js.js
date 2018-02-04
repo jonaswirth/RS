@@ -31,8 +31,21 @@ function setProgressbar(id, progress){
 document.onreadystatechange = () => {
   if (document.readyState === 'complete') {
     setProgressbar("rs", progressRs);
+    setInterval(function(){updateCountdown();}, 1000);
   }
 };
+
+function updateCountdown(){
+  var elem = document.getElementById("rs");
+  var elemCountdown = elem.childNodes[5];
+
+  var timeLeft = getTimeLeft(totalRs - (new Date() - rsStart));
+
+  if(!timeLeft)
+    setProgressbar("rs", 100)
+  else
+    elemCountdown.innerHTML = timeLeft;
+}
 
 function getTimeLeft(distance){
   if (distance < 0)
