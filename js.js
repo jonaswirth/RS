@@ -56,7 +56,19 @@ function getTimeLeft(distance){
   var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
   var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-  return "noch " + days + " Tage " + hours + " Stunden " + minutes + " Minuten " + seconds + " Sekunden ";
+  var str = "noch ";
+
+  if(days === 1)
+    str += days + " Tag ";
+  else
+    str += days + " Tage ";
+
+  if(hours === 1)
+    str += hours + " Stunde ";
+  else
+    str += hours + " Stunden ";
+
+  return str + minutes + " Minuten " + seconds + " Sekunden ";
 }
 
 
