@@ -19,7 +19,7 @@ function setProgressbar(id, progress){
   {
     elemProgress.style.width = progress + "%";
     elemPercent.innerHTML = (Math.round(progress * 100) / 100) + " %";
-    elemDaysLeft.innerHTML = "noch " + Math.round((totalRs - passedRs) / dayMs) + " Tage";
+    elemDaysLeft.innerHTML = getTimeLeft(totalRs - passedRs);
   }
   else{
     elemProgress.style.width = "100%";
@@ -33,6 +33,18 @@ document.onreadystatechange = () => {
     setProgressbar("rs", progressRs);
   }
 };
+
+function getTimeLeft(distance){
+  if (distance < 0)
+    return null;
+
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  return "noch " + days + " Tage " + hours + " Stunden " + minutes + " Minuten " + seconds + " Sekunden ";
+}
 
 
 /*
