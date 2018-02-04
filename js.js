@@ -3,11 +3,8 @@ const dayMs = 86400000;
 var rsStart = new Date(2018, 0, 15);
 var rsEnd = new Date(2018, 4, 18);
 
-var currentDate = new Date();
-
 var totalRs = rsEnd - rsStart;
-var passedRs = currentDate - rsStart;
-var progressRs = 100 / totalRs * passedRs;
+
 
 function setProgressbar(id, progress){
   var elem = document.getElementById(id);
@@ -18,8 +15,8 @@ function setProgressbar(id, progress){
   if(progress < 100)
   {
     elemProgress.style.width = progress + "%";
-    elemPercent.innerHTML = (Math.round(progress * 100) / 100) + " %";
-    elemDaysLeft.innerHTML = getTimeLeft(totalRs - passedRs);
+    elemPercent.innerHTML = (Math.round(progress * 10000) / 10000) + " %";
+    elemDaysLeft.innerHTML = getTimeLeft(totalRs - (new Date() - rsStart));
   }
   else{
     elemProgress.style.width = "100%";
@@ -30,21 +27,15 @@ function setProgressbar(id, progress){
 
 document.onreadystatechange = () => {
   if (document.readyState === 'complete') {
-    setProgressbar("rs", progressRs);
-    setInterval(() => {updateCountdown();}, 1000);
+    setInterval(() => {update();}, 1000);
   }
 };
 
-function updateCountdown(){
-  var elem = document.getElementById("rs");
-  var elemCountdown = elem.childNodes[5];
+function update(){
+  var passedRs = new Date() - rsStart;
+  var progressRs = 100 / totalRs * passedRs;
 
-  var timeLeft = getTimeLeft(totalRs - (new Date - rsStart));
-
-  if(!timeLeft)
-    setProgressbar("rs", 100)
-  else
-    elemCountdown.innerHTML = timeLeft;
+  setProgressbar("rs", progressRs);
 }
 
 function getTimeLeft(distance){
