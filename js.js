@@ -1,7 +1,9 @@
+// The code is very ugly, I know. But time is very limited currently, so I don't really care.
+
 const dayMs = 86400000;
 
-var rsStart = new Date(2018, 0, 15);
-var rsEnd = new Date(2018, 4, 18);
+var rsStart = new Date(2018, 0, 15, 13, 00);
+var rsEnd = new Date(2018, 4, 18, 15, 00);
 
 var totalRs = rsEnd - rsStart;
 
@@ -25,18 +27,12 @@ function setProgressbar(id, progress){
   }
 }
 
-document.onreadystatechange = () => {
-  if (document.readyState === 'complete') {
-    setInterval(() => {update();}, 1000);
-  }
-};
-
 function update(){
   var passedRs = new Date() - rsStart;
   var progressRs = 100 / totalRs * passedRs;
 
   setProgressbar("rs", progressRs);
-}
+};
 
 function getTimeLeft(distance){
   if (distance < 0)
@@ -60,15 +56,20 @@ function getTimeLeft(distance){
     str += hours + " Stunden ";
 
   return str + minutes + " Minuten " + seconds + " Sekunden ";
-}
+};
+
+document.onreadystatechange = () => {
+  if (document.readyState === 'complete') {
+    update();
+    setInterval(() => {update();}, 1000);
+  }
+};
 
 
-/*
+
 //Log
+/*
 console.log(rsStart);
 console.log(rsEnd);
-console.log(currentDate);
-console.log(totalRs);
-console.log(passedRs);
-console.log(progressRs);
+console.log(new Date());
 */
