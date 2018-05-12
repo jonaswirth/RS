@@ -4,21 +4,33 @@ const dayMs = 86400000;
 
 var rsStart = new Date(2018, 0, 15, 13, 00);
 var rsEnd = new Date(2018, 4, 18, 15, 00);
-
 var totalRs = rsEnd - rsStart;
 
+var uosStart = new Date(2018, 4, 19, 8, 00);
+var uosEnd = new Date(2018, 5, 17, 15, 00);
+var totalUos = uosEnd - uosStart;
 
-function setProgressbar(id, progress){
+var rs2Start = new Date(2018, 5, 18, 13, 00);
+var rs2End = new Date(2018, 9, 26, 15, 00);
+var totalRs2 = rs2End - rs2Start;
+
+var total = rs2End - rsStart;
+
+function setProgressbar(id, progress, timeleft){
   var elem = document.getElementById(id);
   var elemProgress = elem.childNodes[1];
   var elemPercent = elem.childNodes[3];
   var elemDaysLeft = elem.childNodes[5];
 
-  if(progress < 100)
+  if(progress <= 0){
+    elemPercent.innerHTML = "0 %";
+    elemDaysLeft.innerHTML = timeleft;
+  }
+  else if(progress < 100)
   {
     elemProgress.style.width = progress + "%";
     elemPercent.innerHTML = (Math.round(progress * 10000) / 10000) + " %";
-    elemDaysLeft.innerHTML = getTimeLeft(totalRs - (new Date() - rsStart));
+    elemDaysLeft.innerHTML = timeleft;
   }
   else{
     elemProgress.style.width = "100%";
@@ -31,7 +43,26 @@ function update(){
   var passedRs = new Date() - rsStart;
   var progressRs = 100 / totalRs * passedRs;
 
-  setProgressbar("rs", progressRs);
+  var passedUos = new Date() - uosStart;
+  var progressUos = 100 / totalUos * passedUos;
+
+  var passedRs2 = new Date() - rs2Start;
+  var progressRs2 = 100 / totalRs2 * passedRs2;
+
+  if(passedUos < 0)
+    passedUos = 0;
+
+  if(passedRs2 < 0)
+    passedRs2 = 0;
+
+  var passedTotal = new Date() - rsStart;
+  var progressTotal = 100 / total * (passedRs + passedUos + passedRs2);
+
+
+  setProgressbar("rs", progressRs, getTimeLeft(totalRs - (new Date() - rsStart)));
+  setProgressbar("uos", progressUos, getTimeLeft(totalUos - (new Date() - uosStart)));
+  setProgressbar("rs2", progressRs2, getTimeLeft(totalRs2 - (new Date() - rs2Start)));
+  setProgressbar("total", progressTotal, getTimeLeft(total - (new Date() - rsStart)));
 };
 
 function getTimeLeft(distance){

@@ -58,6 +58,12 @@ h1{
   color: black;
 }
 
+.progressBox{
+  display: block;
+  overflow: hidden;
+  min-height: 150px;
+}
+
 .daysLeft{
   font-size: 1.3em;
 }
