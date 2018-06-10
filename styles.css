@@ -21,6 +21,10 @@ h1{
   font-size: 2.4em;
 }
 
+#content div:last-child{
+  margin-bottom: 100px;
+}
+
 #header{
   background-color: rgba(255, 255, 255, 0.3);
   margin-top:0;
@@ -37,6 +41,10 @@ h1{
 #content{
   width: 90%;
   margin: 10px auto 0 auto;
+}
+
+#passedTime{
+  font-size: 1.4em;
 }
 
 .progressbar{
@@ -65,5 +73,5 @@ h1{
 }
 
 .daysLeft{
-  font-size: 1.3em;
+  font-size: 1.1em;
 }

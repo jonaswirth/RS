@@ -7,11 +7,11 @@ var rsEnd = new Date(2018, 4, 18, 15, 00);
 var totalRs = rsEnd - rsStart;
 
 var uosStart = new Date(2018, 4, 19, 8, 00);
-var uosEnd = new Date(2018, 5, 17, 15, 00);
+var uosEnd = new Date(2018, 5, 16, 13, 00);
 var totalUos = uosEnd - uosStart;
 
-var rs2Start = new Date(2018, 5, 18, 13, 00);
-var rs2End = new Date(2018, 9, 26, 15, 00);
+var rs2Start = new Date(2018, 5, 16, 13, 00);
+var rs2End = new Date(2018, 9, 26, 18, 00);
 var totalRs2 = rs2End - rs2Start;
 
 var total = rs2End - rsStart;
@@ -30,7 +30,7 @@ function setProgressbar(id, progress, timeleft){
   {
     elemProgress.style.width = progress + "%";
     elemPercent.innerHTML = (Math.round(progress * 10000) / 10000) + " %";
-    elemDaysLeft.innerHTML = timeleft;
+    elemDaysLeft.innerHTML = "noch " + timeleft;
   }
   else{
     elemProgress.style.width = "100%";
@@ -56,13 +56,14 @@ function update(){
     passedRs2 = 0;
 
   var passedTotal = new Date() - rsStart;
-  var progressTotal = 100 / total * (passedRs + passedUos + passedRs2);
+  var progressTotal = 100 / total * passedTotal;
 
 
   setProgressbar("rs", progressRs, getTimeLeft(totalRs - (new Date() - rsStart)));
   setProgressbar("uos", progressUos, getTimeLeft(totalUos - (new Date() - uosStart)));
   setProgressbar("rs2", progressRs2, getTimeLeft(totalRs2 - (new Date() - rs2Start)));
   setProgressbar("total", progressTotal, getTimeLeft(total - (new Date() - rsStart)));
+  setPassedTime();
 };
 
 function getTimeLeft(distance){
@@ -74,7 +75,7 @@ function getTimeLeft(distance){
   var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
   var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-  var str = "noch ";
+  var str = "";
 
   if(days === 1)
     str += days + " Tag ";
@@ -88,6 +89,11 @@ function getTimeLeft(distance){
 
   return str + minutes + " Minuten " + seconds + " Sekunden ";
 };
+
+function setPassedTime(){
+  var elem = document.getElementById("passedTime");
+  elem.innerHTML = "Es sind bereits " + getTimeLeft(new Date() - rsStart) + " vergangen.";
+}
 
 document.onreadystatechange = () => {
   if (document.readyState === 'complete') {
